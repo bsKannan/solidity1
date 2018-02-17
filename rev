@@ -1,0 +1,15 @@
+pragma solidity ^0.4.0;
+contract test{
+    uint256 a;
+    uint256 re;
+    function rev(uint256 n)public constant returns(uint256)
+    {
+        while(n>0)
+        {
+           a=n%10;
+           re=re*10+a;
+           n=n/10;
+        }
+        return(re);
+    }
+}
