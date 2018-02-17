@@ -1,0 +1,25 @@
+pragma solidity ^0.4.0;
+contract test{
+    uint256 a;
+    uint256 sum=0;
+    function rev(uint256 n)public constant returns(string)
+    {
+        uint256 t = n;
+        while(n>0)
+        {
+            a=n%10;
+            sum=sum+(a*a*a);
+            n=n/10;
+        }
+        if(sum == t)
+        {
+            return("The Number is Amstrong");
+        }
+        else
+        {
+            return("The number is not Amstrong");
+            
+        }
+        
+    }
+}
