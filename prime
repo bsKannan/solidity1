@@ -1,0 +1,23 @@
+pragma solidity ^0.4.0;
+contract prime
+{
+    uint256 m;
+    function find(uint256 n)public constant returns(string)
+    {
+        m = n/2;
+        for(uint256 i=2;i<=m;i++)
+        {
+            if(n%i == 0)
+            {
+                return("the given number is not prime");
+                
+            }
+            else
+            {
+                return("The number is prime");
+            }
+        }
+        
+        
+    }
+}
