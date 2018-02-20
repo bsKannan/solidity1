@@ -1,0 +1,30 @@
+bank
+
+pragma solidity ^0.4.0;
+contract bank
+{
+    struct details 
+    {
+        uint256 balance;
+    }
+    mapping(address=>details) acc;
+    modifier check(uint256 cash,address from)
+    {
+        require(cash<acc[from].balance);
+        _;
+    }
+   
+    function bank_from(address buy_for,uint256 how_much) public
+    {
+        acc[buy_for].balance=how_much;
+    }
+    function transfer(address from,address to,uint256 cash)check(cash,from)public //returns(uint256)
+    {
+        acc[to].balance+=cash;
+        acc[from].balance-=cash;
+    }
+    function balace(address ad)public constant returns(uint256 balace_is)
+    {
+        return acc[ad].balance;
+    }
+}
