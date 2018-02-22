@@ -1,0 +1,39 @@
+pragma solidity ^0.4.0;
+contract bank
+{
+     address owner;
+    function bank()public 
+    {
+         owner=msg.sender;
+    }
+    //address owner=0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
+    struct details
+    {
+        uint256 balances;
+    }
+    mapping(address=>details)map;
+    modifier check(address _ad,uint256 _val)
+    {
+        require((owner==msg.sender)&&(map[_ad].balances>_val));
+        _;
+    }
+    function deposit(address ad,uint256 value)public returns(uint256)
+    {
+        map[ad].balances+=value;
+        return (map[ad].balances);
+    }
+    function withdraw(address ad,uint256 value)public  returns(uint256)
+    {
+        map[ad].balances-=value;
+        return(map[ad].balances);
+    }
+    function from_to(address ad,address _to,uint256 _value) check(ad,_value) public
+    {
+        map[ad].balances-=_value;
+        map[_to].balances+=_value;
+    }
+    function balance(address ad) public constant returns(uint256)
+    {
+        return(map[ad].balances);
+    }
+}
