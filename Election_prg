@@ -1,0 +1,28 @@
+Election 
+pragma solidity^0.4.0;
+contract name
+{
+   struct details
+   {
+    uint256 vote;
+    uint256 vote1;
+   }
+    mapping(uint256=>details)map;
+    function put_vote(uint256 a,uint256 vote,uint256 vote1)public
+    {
+        map[a].vote=vote;
+        map[a].vote1=vote1;
+    }
+    function display(uint256 a)public view returns(uint256,string,uint256)
+    {
+        if(map[a].vote>map[a].vote1)
+        {
+            uint256 total=map[a].vote-map[a].vote1;
+            return (map[a].vote,"candidate1 is win",total);
+        }else
+        {
+             total=map[a].vote1-map[a].vote;
+            return (map[a].vote1,"candidate2 is win",total);
+        }
+    }
+}
