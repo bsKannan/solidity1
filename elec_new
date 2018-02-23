@@ -1,0 +1,74 @@
+elecion new
+
+pragma solidity^0.4.0;
+contract name
+{
+    uint256 e;
+   struct details
+   {
+    uint256 vote;
+    uint256 vote1;
+    uint256 vote2;
+    uint256 total;
+   }
+    mapping(uint256=>details)map;
+  /*  modifier check(uint256 vote,uint256 vote1,uint256 vote2)
+    {
+        require((map[a].vote>map[b].vote1)&&(map[a].vote>map[c].vote2)) || ((map[c].vote2>map[b].vote1)&&(map[c].vote2>map[a].vote));
+        _;
+    }*/
+    function put_vote(uint256 a,uint256 b,uint256 c,uint256 vote)public
+    {
+        map[a].vote=vote;
+
+    }
+    function put_vote1(uint256 b,uint256 vote1)public
+    {
+                map[b].vote1=vote1;
+    }
+    function put_vote2(uint256 c,uint256 vote2)public
+    {
+        map[c].vote2=vote2;
+    }
+    function total_vote(uint256 d,uint256 a,uint256 b,uint256 c)public view returns(uint256)
+    {
+        
+       map[d].total=map[a].vote+map[b].vote1+map[c].vote2;
+       return map[d].total;
+    }
+    function display(uint256 a,uint256 b,uint256 c)public view returns(uint256,string,uint256)
+    {
+        if((map[a].vote>map[b].vote1)&&(map[a].vote>map[c].vote2))
+        
+        {
+            if(map[b].vote1>map[c].vote2)
+            {
+            e=map[a].vote-map[b].vote1;
+            } else
+            e=map[a].vote-map[c].vote2;
+           
+            return (map[a].vote,"candidate1 is win",e);
+        }
+            
+            else if((map[b].vote1>map[c].vote2)&&(map[b].vote1>map[a].vote))
+            {
+                if(map[c].vote2>map[a].vote)
+            {
+            e=map[b].vote1-map[c].vote2;
+            } else
+            e=map[b].vote1-map[a].vote;
+           
+                    return(map[b].vote1,"candidate2 is win",e);
+            }        
+            
+             else if((map[c].vote2>map[b].vote1)&&(map[c].vote2>map[a].vote))
+                    {
+                if(map[a].vote>map[b].vote1)
+            {
+            e=map[c].vote2-map[a].vote;
+            } else
+            e=map[c].vote2-map[b].vote1;
+              return(map[c].vote2,"candidate3 is win",e);
+                    }
+    }
+}
