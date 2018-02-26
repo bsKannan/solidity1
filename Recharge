@@ -1,0 +1,55 @@
+Recharge phone number
+pragma solidity ^0.4.0;
+contract bank
+{
+    uint256 count=0;
+    struct details 
+    {
+        uint256[] a;
+        uint256 balance;
+        uint256 ph_no;
+    }
+    mapping(uint256=>details) acc;
+    modifier check2(uint256 cash,uint256 from)
+    {
+        require((cash<acc[from].balance));
+        _;
+    }
+    modifier check(uint256 ph_no)
+    {
+          while(ph_no!=0)
+            {
+            ph_no=(ph_no/10);
+            count++;
+            }
+            require(count==10);
+        _;
+    }
+    function bank_from(uint256 buy_for,uint256 how_much) 
+    {
+        acc[buy_for].balance=how_much;
+    }
+    function phone(uint256 ph_no) check(ph_no) private
+    {
+        acc[ph_no].ph_no=ph_no;
+    }
+    function transfer(uint256 from,uint256 ph_no,uint256 cash)check2(cash,from) public
+    {
+        acc[ph_no].balance+=cash;
+        acc[from].balance-=cash;
+        acc[ph_no].a.push(cash);
+    }
+   function balance(uint256 from) public constant returns(uint256)
+   {
+       return acc[from].balance;
+   }
+   function ph_balance(uint256 ph_no) public constant returns(uint256)
+   {
+       return acc[ph_no].balance;
+   }
+   function transation(uint256 ph_no) public constant returns(uint256[])
+   {
+        
+       return  acc[ph_no].a;
+   }
+}
