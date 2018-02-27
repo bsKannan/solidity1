@@ -1,0 +1,32 @@
+pragma solidity ^0.4.0;
+contract supermarket
+{
+    struct obj
+    {
+        string name;
+        uint256 value;
+        uint256 total;
+    }
+    mapping(uint256=>obj)map;
+    mapping(uint256=>mapping(uint256=>obj))map2;
+     function update(uint256 id,string name,uint256 value) //returns(uint256,string,uint256)
+     {
+         map[id].name=name;
+         map[id].value=value;
+     }
+     function buy(uint256 id,uint256 customer,uint256 value) // returns(uint256)
+     {
+        map[id].value-=value; 
+        map2[customer][id].value+=value;
+        map[customer].value+=value;
+        //return value;
+     }
+     function balance(uint256 id,uint256 id2,uint256 customer)constant returns(uint256,uint256,uint256,uint256)
+     {
+                 return (map[id].value,map2[customer][id].value,map[id2].value,map2[customer][id2].value);
+     }
+     function amount(uint256 customer)constant returns(uint256)
+     {
+         return(map[customer].value);
+     }
+}
