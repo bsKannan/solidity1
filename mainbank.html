@@ -1,0 +1,324 @@
+main prg
+<!DOCTYPE html>
+<html>
+<head><title>Bank</title></head>
+<form style="background-color:#E6E6FA">
+<center>
+<style>
+p {
+    font-family: blue;
+    font-size: 20px;
+    color:#000000;
+}
+</style>
+<h1 style="color:green">Bank Details</h1>
+<p>Deposit</p>
+<input id="i1" type="text" placeholder="OwnerAddress"/>
+<input id="i2" type="text" placeholder="DepositAmount"/>
+<input type="button" onclick="Deposit()" value="Deposit"><h1 id="r1"></h1><br>
+
+<p>Transaction</p>
+<input id="i3" type="text" placeholder="Reciver"/>
+<input id="i4" type="text" placeholder="TransAmount"/>
+<input type="button" onclick="Transaction()" value="Transaction"><h1 id="r2"></h1><br>
+
+<p>Approve</p>
+<input id="i5" type="text" placeholder="Spender"/>
+<input id="i6" type="text" placeholder="Value"/>
+<input type="button" onclick="Approve()" value="Approve"><h1 id="r3"></h1><br>
+
+<p>Allowance</p>
+<input id="i7" type="text" placeholder="OwnerAddress"/>
+<input id="i8" type="text" placeholder="SpenderAddress"/>
+<input type="button" onclick="Allowance()" value="Allowance"><h1 id="r4"></h1><br>
+
+<p>TransferFrom</p>
+<input id="i9" type="text" placeholder="FromAddress"/>
+<input id="i10" type="text" placeholder="ToAddress"/>
+<input id="i11" type="text" placeholder="TransAmount"/>
+<input type="button" onclick="TransferFrom" value="TransferFrom"><h1 id="r5"></h1><br>
+
+<p>Balance</p>	
+<input id="i12" type="text" placeholder="Äddress"/>
+<input type="button" onclick="Balance" value="Balance"><h1 id="r6"></h1><br>	
+</center>
+<script>
+web3.eth.defaultAccount = web3.eth.accounts[0];
+        var con= web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_spender",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"name": "dep",
+				"type": "uint256"
+			}
+		],
+		"name": "deposit",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "reciver",
+				"type": "address"
+			},
+			{
+				"name": "transamt",
+				"type": "uint256"
+			}
+		],
+		"name": "transaction",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"name": "_spender",
+				"type": "address"
+			}
+		],
+		"name": "allowance",
+		"outputs": [
+			{
+				"name": "remaining",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "balcheck",
+				"type": "address"
+			}
+		],
+		"name": "balance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]);
+
+var mycont=con.at('0x2f72dc60b2ca439d1516b0bb0292db399fbcfa46');
+if(!web3.isConnected()) {
+  
+        console.log("Ok....");
+        
+      } else {
+        console.log("web3 connected");
+      }
+      web3.version.getNetwork((err, netId) => {
+            switch (netId) {
+              case "1":
+                console.log('This is mainnet')
+                break
+              case "2":
+                console.log('This is the deprecated Morden test network.')
+                break
+              case "3":
+                console.log('This is the ropsten test network.')
+                break
+              case "4":
+                console.log('This is the Rinkeby test network.')
+                break
+              case "42":
+                console.log('This is the Kovan test network.')
+                break
+              default:
+                console.log('This is an unknown network.')
+            }
+        })
+
+var a=document.getElementById("i1").value;
+var b=document.getElementById("i2").value;
+
+var a1=document.getElementById("i3").value;
+var b1=document.getElementById("i4").value;
+
+var a2=document.getElementById("i5").value;
+var b2=document.getElementById("i6").value;
+
+var a3=document.getElementById("i7").value;
+var b3=document.getElementById("i8").value;
+
+var a4=document.getElementById("i9").value;
+var b4=document.getElementById("i10").value;
+var c1=document.getElementById("i11").value;
+
+var a5=document.getElementById("i12").value;
+
+function Deposit()
+{
+mycont.Deposite(a.value,b.value, function (error,result)
+	{
+            if (!error) 
+	{
+              console.log(result);
+                             
+        }   else 
+	{
+              console.error(error);
+	}
+        });
+	
+alert("Done!.....");
+}
+function Transaction()
+{
+
+mycont.Transaction(a1.value,b1.value, function (error,result)
+	{
+            if (!error) 
+	{
+              console.log(result);
+                             
+        }   else 
+	{
+              console.error(error);
+	}
+        });
+alert("Done!.....");
+}
+function Approve()
+{
+
+mycont.Approve(a2.value,b2 function (error,result)
+	{
+            if (!error) 
+	{
+              console.log(result);
+                             
+        }   else 
+	{
+              console.error(error);
+	}
+        });
+alert("Done!.....");
+}
+function Allowance()
+{
+
+mycont.Allowance(a3.value,b3.value, function ((error,result)
+	{
+            if (!error) 
+	{
+              alert(result);
+                             
+        } else 
+	{
+              console.error(error);
+}
+	}););
+alert("Done!.....");
+}
+function TransferFrom()
+{
+
+mycont.Transfrom(a2.value,b2.value,b4.value, function (error,result)
+	{
+            if (!error) 
+	{
+              console.log(result);
+                             
+        }   else 
+	{
+              console.error(error);
+	}
+        });
+alert("Done!.....");
+}
+function Balance()
+{
+
+mycont.Balance(a5.value, function (error,result)
+	{
+            if (!error) 
+	{
+              alert(result);
+                             
+        } else 
+	{
+              console.error(error);
+}
+	});
+alert("Done!.....");
+
+</script>
+</body>
+</html>
