@@ -1,0 +1,153 @@
+bank html prg
+<!DOCTYPE html>
+<html>
+<head><title>Bank</title></head>
+<form style="background-color:#E6E6FA">
+<center>
+<style>
+p {
+    font-family: blue;
+    font-size: 20px;
+    color:#000000;
+}
+</style>
+<h1 style="color:green">Bank Details</h1>
+<p>Deposit</p>
+<input id="i1" type="text" placeholder="OwnerAddress"/>
+<input id="i2" type="text" placeholder="DepositAmount"/>
+<input type="button" onclick="Deposit()" value="Deposit"><h1 id="r1"></h1><br>
+
+<p>Transaction</p>
+<input id="i3" type="text" placeholder="Reciver"/>
+<input id="i4" type="text" placeholder="TransAmount"/>
+<input type="button" onclick="Transaction()" value="Transaction"><h1 id="r2"></h1><br>
+
+<p>Approve</p>
+<input id="i5" type="text" placeholder="Spender"/>
+<input id="i6" type="text" placeholder="Value"/>
+<input type="button" onclick="Approve()" value="Approve"><h1 id="r3"></h1><br>
+
+<p>Allowance</p>
+<input id="i1" type="text" placeholder="OwnerAddress"/>
+<input id="i5" type="text" placeholder="SpenderAddress"/>
+<input type="button" onclick="Allowance()" value="Allowance"><h1 id="r4"></h1><br>
+
+<p>TransferFrom</p>
+<input id="i1" type="text" placeholder="FromAddress"/>
+<input id="i3" type="text" placeholder="ToAddress"/>
+<input id="i4" type="text" placeholder="TransAmount"/>
+<input type="button" onclick="TransferFrom" value="TransferFrom"><h1 id="r5"></h1><br>
+
+<p>Balance</p>	
+<input id="i" type="text" placeholder="Äddress"/>
+<input type="button" onclick="Balance" value="Balance"><h1 id="r6"></h1><br>	
+
+<script>
+1.function Deposite()
+{
+var a=document.getElementById("i1").value;
+var b=document.getElementById("i2").value;
+
+mycont.Deposite(a,b function (error,result)
+	{
+            if (!error) 
+	{
+              console.log(result);
+                             
+        }   else 
+	{
+              console.error(error);
+	}
+        });
+	
+alert("Done!.....");
+}
+2.function Transaction()
+{
+var a1=document.getElementById("i3").value;
+var b1=document.getElementById("i4").value;
+
+mycont.Transaction(a1,b1 function (error,result)
+	{
+            if (!error) 
+	{
+              console.log(result);
+                             
+        }   else 
+	{
+              console.error(error);
+	}
+        });
+alert("Done!.....");
+}
+3.function Approve()
+{
+var a2=document.getElementById("i5").value;
+var b2=document.getElementById("i6").value;
+mycont.Approve(a2,b2 function (error,result)
+	{
+            if (!error) 
+	{
+              console.log(result);
+                             
+        }   else 
+	{
+              console.error(error);
+	}
+        });
+alert("Done!.....");
+}
+4.function Allowance()
+{
+var a3=document.getElementById("i1").value;
+var b3=document.getElementById("i5").value;
+mycont.Allowance(a3,b3 function ((error,result)
+	{
+            if (!error) 
+	{
+              alert(result);
+                             
+        } else 
+	{
+              console.error(error);
+}
+	}););
+alert("Done!.....");
+}
+5.function TransferFrom()
+{
+var a1=document.getElementById("i1").value;
+var b4=document.getElementById("i3").value;
+var b4=document.getElementById("i4").value;
+mycont.Transfrom(a2,b2,b4 function (error,result)
+	{
+            if (!error) 
+	{
+              console.log(result);
+                             
+        }   else 
+	{
+              console.error(error);
+	}
+        });
+alert("Done!.....");
+}
+6.function Balance()
+{
+var a5=document.getElementById("i").value
+mycont.Balance(a3,b3 function (error,result)
+	{
+            if (!error) 
+	{
+              alert(result);
+                             
+        } else 
+	{
+              console.error(error);
+}
+	});
+alert("Done!.....");
+
+</script>
+</body>
+</html>
